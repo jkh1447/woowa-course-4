@@ -1,6 +1,5 @@
 package woowa.myapp.controller;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import woowa.myapp.model.Card;
@@ -27,7 +26,7 @@ public class AddCardController {
         }
         deck.addCard(new Card(front, back));
 
-        deckManager.saveToFile();
+        deck.saveDeckData();
 
         JOptionPane.showMessageDialog(addCardPanel, "카드가 추가되었습니다!");
         frontField.setText("");

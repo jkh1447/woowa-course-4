@@ -1,7 +1,6 @@
 package woowa.myapp.controller;
 
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import woowa.myapp.model.Deck;
@@ -21,7 +20,7 @@ public class DeckSettingController {
         }
 
         try {
-            deckManager.saveToFile();
+            deck.saveDeckData();
             JOptionPane.showMessageDialog(deckSettingPanel, "설정이 저장되었습니다!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(deckSettingPanel, "저장 중 오류 발생: " + ex.getMessage());
@@ -37,7 +36,7 @@ public class DeckSettingController {
                 }
             }
             try {
-                deckManager.saveToFile();
+                deck.saveDeckData();
                 JOptionPane.showMessageDialog(deckSettingPanel, "삭제 완료!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(deckSettingPanel, "삭제 중 오류 발생: " + ex.getMessage());

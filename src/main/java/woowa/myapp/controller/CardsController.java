@@ -1,8 +1,8 @@
 package woowa.myapp.controller;
 
-import java.awt.event.ActionEvent;
 import java.util.List;
 import woowa.myapp.model.Card;
+import woowa.myapp.model.Deck;
 import woowa.myapp.model.DeckManager;
 
 public class CardsController {
@@ -12,11 +12,11 @@ public class CardsController {
         this.deckManager = deckManager;
     }
 
-    public void getEasyButtonEvent(List<Card> targetCards, int currentIndex) {
+    public void getEasyButtonEvent(List<Card> targetCards, int currentIndex, Deck deck) {
         if (targetCards.isEmpty()) return;
         Card currentCard = targetCards.get(currentIndex);
         currentCard.setTarget(false); // 쉬움이면 다시 안나오게
-        deckManager.saveToFile();
+        deck.saveDeckData();
     }
 
 }

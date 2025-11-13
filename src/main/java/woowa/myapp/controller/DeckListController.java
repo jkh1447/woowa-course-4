@@ -69,8 +69,8 @@ public class DeckListController {
         if (confirm == JOptionPane.YES_OPTION) {
             decks.remove(deck);
             try {
-                deckManager.removeDeck(deck);  // deckManager에서 리스트 제거
-                deckManager.saveToFile();      // 저장                 // UI 갱신
+                deckManager.removeDeck(deck);
+                deckManager.saveDeckList();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(deckListPanel, "삭제 중 오류 발생: " + ex.getMessage());
             }

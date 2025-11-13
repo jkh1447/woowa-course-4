@@ -7,14 +7,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import woowa.myapp.controller.AddCardController;
 import woowa.myapp.model.DeckManager;
-import woowa.myapp.model.Card;
 import woowa.myapp.model.Deck;
 
 public class AddCardPanel extends JPanel {
@@ -90,7 +88,7 @@ public class AddCardPanel extends JPanel {
 
     void addSaveButtonEvent(JButton saveButton, JTextArea frontField, JTextArea backField) {
         saveButton.addActionListener(e -> {
-            addCardController.getAddSaveButtonEvent(deck,frontField, backField, this);
+            addCardController.getAddSaveButtonEvent(deck, frontField, backField, this);
         });
     }
 

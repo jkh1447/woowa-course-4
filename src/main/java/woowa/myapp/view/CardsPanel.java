@@ -88,7 +88,7 @@ public class CardsPanel extends JPanel {
         easyButton = new JButton("쉬움");
         easyButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         easyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        addEasyButtonEvent(easyButton);
+        addEasyButtonEvent(easyButton, deck);
 
         // 다시 버튼
         againButton = new JButton("다시");
@@ -196,9 +196,9 @@ public class CardsPanel extends JPanel {
         showAnswerButton.addActionListener(e -> onShowAnswer());
     }
 
-    void addEasyButtonEvent(JButton easyButton) {
+    void addEasyButtonEvent(JButton easyButton, Deck deck) {
         easyButton.addActionListener(e -> {
-            cardsController.getEasyButtonEvent(targetCards, currentIndex);
+            cardsController.getEasyButtonEvent(targetCards, currentIndex, deck);
             nextCard(true);
         });
     }

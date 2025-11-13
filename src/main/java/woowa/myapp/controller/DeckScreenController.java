@@ -25,7 +25,7 @@ public class DeckScreenController {
             Deck newDeck = new Deck(newDeckName);
             deckManager.addDeck(newDeck);
 
-            deckManager.saveToFile();
+            deckManager.saveDeckList();
 
             deckListPanel.refresh();
         }

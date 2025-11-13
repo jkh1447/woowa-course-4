@@ -1,8 +1,6 @@
 package woowa.myapp.controller;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import woowa.myapp.model.Deck;
 import woowa.myapp.model.DeckManager;
 import woowa.myapp.view.DeckListPanel;
 import woowa.myapp.view.DeckScreenPanel;
@@ -27,7 +25,7 @@ public class MainController {
     }
 
     public void init() {
-        this.deckManager = DeckManager.loadFromFile();
+        this.deckManager = new DeckManager();
         this.mainFrame = new MainFrame(deckManager);
 
         // controller
@@ -35,15 +33,35 @@ public class MainController {
         this.deckSettingController = new DeckSettingController(deckManager);
         this.addCardController = new AddCardController(deckManager, this);
         this.cardsController = new CardsController(deckManager);
-        this.deckListController = new DeckListController(mainFrame, deckManager, deckSettingController, this, addCardController, cardsController);
+        this.deckListController = new DeckListController(mainFrame, deckManager, deckSettingController, this,
+                addCardController, cardsController);
 
         // panel
         this.deckListPanel = new DeckListPanel(deckManager, mainFrame, deckListController);
         this.deckScreenPanel = new DeckScreenPanel(mainFrame, deckManager, deckListPanel, deckScreenController);
+
+        // 종료시 lazy loading을 위한 clean up
+        //cleanUp();
 
     }
 
     public void getMainButtonEvent() {
         mainFrame.setPanel(deckScreenPanel);
     }
+
+    /*public void cleanUp() {
+        List<Deck> decks = deckManager.getDecks();
+        mainFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Deck deck: decks) {
+                    deck.setIsCardsLoaded(false);
+                }
+                System.out.println("all cleaned up\n");
+            }
+        });
+
+
+    }*/
+
 }

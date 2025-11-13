@@ -12,12 +12,12 @@ import java.util.ArrayList;
 public class DeckManager implements Serializable {
 
     private static final String SAVE_FOLDER = "save";
-    private static final String SAVE_FILE = SAVE_FOLDER + "/save.dat";
-
-    private ArrayList<Deck> decks;
+    private static final String DECK_FOLDER = SAVE_FOLDER + "/decks";
+    private static final String DECK_LIST_FILE = SAVE_FOLDER + "/decklist.dat";
+    private ArrayList<Deck> decks = new ArrayList<>();
 
     public DeckManager() {
-        decks = new ArrayList<>();
+        loadDeckList();
     }
 
     public void addDeck(Deck deck) {
@@ -28,28 +28,32 @@ public class DeckManager implements Serializable {
         return decks;
     }
 
-    public void saveToFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
-            oos.writeObject(this);
-        } catch (Exception e) {
+    public void removeDeck(Deck deck) {
+        decks.remove(deck);
+        saveDeckList();
+        deck.deleteDeckData();
+    }
+
+    public void saveDeckList() {
+        try {
+            File folder = new File(SAVE_FOLDER);
+            if (!folder.exists()) folder.mkdirs();
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DECK_LIST_FILE))) {
+                oos.writeObject(decks);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static DeckManager loadFromFile() {
-        File file = new File(SAVE_FILE);
-        if (file.exists()) {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SAVE_FILE))) {
-                return (DeckManager) ois.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+    public void loadDeckList() {
+        File file = new File(DECK_LIST_FILE);
+        if (!file.exists()) return;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            decks = (ArrayList<Deck>) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        return new DeckManager();
-    }
-
-    public void removeDeck(Deck deck) {
-        decks.remove(deck);
     }
 }
